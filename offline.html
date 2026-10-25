@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background: #1a1a1a; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        body.light-theme { background: #ffffff; color: #1a1a1a; }
+        button { background: #007bff; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🛰️</h1>
+    <h2>You are offline</h2>
+    <p>Please check your connection.</p>
+    <button onclick="retry()">Retry</button>
+    <script>
+        const { ipcRenderer } = require('electron');
+        function retry() { ipcRenderer.send('retry-connection'); }
+        ipcRenderer.on('apply-theme', (e, theme) => {
+            if(theme === 'light') document.body.classList.add('light-theme');
+        });
+    </script>
+</body>
+</html>
